@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>爱游戏 · 故事开始的地方</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            line-height: 1.7;
+            color: #1f2a3a;
+            background: #f4f6f8;
+        }
+        a {
+            color: #9b4b6b;
+            text-decoration: none;
+            font-weight: 500;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.2s, color 0.2s;
+        }
+        a:hover {
+            color: #712b4a;
+            border-bottom-color: #9b4b6b;
+        }
+
+        /* 深色头图 — 故事的开场 */
+        .story-hero {
+            background: linear-gradient(145deg, #0a0e1a 0%, #1b2238 100%);
+            color: #e7eaf0;
+            padding: 3.8rem 1.5rem 4.2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .story-hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(90deg, #9b4b6b, #c9849a, #9b4b6b);
+        }
+        .story-hero h1 {
+            font-size: 2.8rem;
+            font-weight: 350;
+            letter-spacing: 4px;
+            margin-bottom: 0.6rem;
+            color: #f0eef3;
+        }
+        .story-hero .tagline {
+            font-size: 1.5rem;
+            font-weight: 300;
+            color: #c9cdda;
+            margin-top: 0.3rem;
+            border-top: 1px solid rgba(255,255,255,0.12);
+            display: inline-block;
+            padding-top: 0.8rem;
+        }
+
+        /* 浅色正文区 — 故事的主体 */
+        .story-body {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2.8rem 1.5rem 3.5rem;
+        }
+
+        .chapter {
+            margin-bottom: 2.8rem;
+        }
+        .chapter:last-of-type {
+            margin-bottom: 2rem;
+        }
+        .chapter h2 {
+            font-size: 1.7rem;
+            font-weight: 400;
+            color: #1f2a3a;
+            border-left: 4px solid #9b4b6b;
+            padding-left: 1rem;
+            margin-bottom: 1.2rem;
+        }
+        .chapter p {
+            margin-bottom: 1rem;
+            font-size: 1.05rem;
+        }
+        .chapter p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* 特点列表 — 温和的卡片样式 */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1.5rem;
+            margin: 1.8rem 0 0.5rem;
+        }
+        .feature-item {
+            background: white;
+            border-radius: 18px;
+            padding: 1.5rem 1rem 1.2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.02), 0 1px 3px rgba(0,0,0,0.04);
+            transition: box-shadow 0.25s;
+            text-align: center;
+        }
+        .feature-item:hover {
+            box-shadow: 0 8px 24px rgba(155,75,107,0.10);
+        }
+        .feature-item .emoji-badge {
+            font-size: 2rem;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+        .feature-item h3 {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #1b2238;
+            margin-bottom: 0.25rem;
+        }
+        .feature-item p {
+            font-size: 0.92rem;
+            color: #4a5568;
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        /* FAQ 摘要 — 温和的问答块 */
+        .faq-preview {
+            background: #ffffffd9;
+            backdrop-filter: blur(2px);
+            border-radius: 24px;
+            padding: 1.6rem 1.8rem 1.8rem;
+            margin-top: 2rem;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.03);
+        }
+        .faq-preview h3 {
+            font-weight: 400;
+            font-size: 1.25rem;
+            color: #2d3748;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .faq-preview details {
+            border-bottom: 1px solid #e9edf2;
+            padding: 0.7rem 0;
+        }
+        .faq-preview details:last-of-type {
+            border-bottom: none;
+        }
+        .faq-preview summary {
+            cursor: pointer;
+            font-weight: 450;
+            color: #2d3748;
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .faq-preview summary::after {
+            content: '﹀';
+            font-size: 1rem;
+            color: #9b4b6b;
+            transition: transform 0.2s;
+        }
+        .faq-preview details[open] summary::after {
+            transform: rotate(180deg);
+        }
+        .faq-preview .faq-answer {
+            margin-top: 0.5rem;
+            color: #4a5568;
+            font-size: 0.98rem;
+            padding-left: 0.2rem;
+        }
+
+        /* 温和结尾 */
+        .gentle-footer {
+            text-align: center;
+            margin-top: 1.5rem;
+            padding-top: 2rem;
+            border-top: 1px solid #dce2e9;
+            color: #4b5a6e;
+            font-size: 0.96rem;
+        }
+        .gentle-footer a {
+            border-bottom: none;
+        }
+        .gentle-footer a:hover {
+            border-bottom: 1px solid #9b4b6b;
+        }
+        .gentle-footer .small-note {
+            margin-top: 0.8rem;
+            font-size: 0.85rem;
+            color: #758394;
+        }
+
+        /* 响应式细节 */
+        @media (max-width: 600px) {
+            .story-hero h1 {
+                font-size: 2.2rem;
+                letter-spacing: 2px;
+            }
+            .story-hero .tagline {
+                font-size: 1.2rem;
+            }
+            .story-body {
+                padding: 2rem 1rem 2.5rem;
+            }
+            .chapter h2 {
+                font-size: 1.4rem;
+            }
+            .feature-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 1rem;
+            }
+            .faq-preview {
+                padding: 1.2rem;
+            }
+        }
+        @media (max-width: 420px) {
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 深色头图：故事的开场短句 -->
+    <header class="story-hero">
+        <h1>爱游戏</h1>
+        <div class="tagline">一段旅程 · 一些陪伴 · 一束灵感</div>
+    </header>
+
+    <!-- 浅色正文区：承接段落、特点、FAQ、结尾 -->
+    <main class="story-body">
+
+        <!-- 承接段落：从关键词背后的主题内容展开 -->
+        <section class="chapter">
+            <h2>不只是名字</h2>
+            <p>「爱游戏」三个字，听起来像是一个简单的念头——喜欢玩，乐于沉浸。但如果你停下来想一想，会发现这个词背后藏着更多的线索：每一次启动游戏，都是一次出发；每一次卡关时的研究，都是静默的钻研。我们做的，不只是在屏幕上点按，而是在故事里找到自己的节奏。</p>
+            <p>从独自探索到与朋友分享，从像素画面到宏大的开放世界，游戏早已成为许多人生活里真实的一角。<a href="https://app-official-aiyouxi.com.cn">爱游戏</a>这个站点，便是在这样的理解里慢慢成形——不是喧闹的公告栏，更像一间安静的驿站，为路过的人提供一些关于游戏、创作与陪伴的启发。</p>
+        </section>
+
+        <!-- 特点列表：温和卡片，展示几个侧面 -->
+        <section class="chapter">
+            <h2>四个小小的侧面</h2>
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <span class="emoji-badge">🌱</span>
+                    <h3>轻巧灵感</h3>
+                    <p>每天一点有趣的想法，不堆砌术语，只讲人话。</p>
+                </div>
+                <div class="feature-item">
+                    <span class="emoji-badge">🕹️</span>
+                    <h3>旧游新看</h3>
+                    <p>经典作品里藏着被忽略的细节，重新打量会有新发现。</p>
+                </div>
+                <div class="feature-item">
+                    <span class="emoji-badge">📖</span>
+                    <h3>叙事角落</h3>
+                    <p>聊聊游戏剧情如何影响我们的思考，以及那些难忘的角色。</p>
+                </div>
+                <div class="feature-item">
+                    <span class="emoji-badge">☕</span>
+                    <h3>放松步调</h3>
+                    <p>不赶进度，不卷排名，把游戏当生活里的一杯茶。</p>
+                </div>
+            </div>
+            <p style="margin-top: 1.2rem; font-size: 0.98rem; color: #4a5568;">这些内容谈不上宏大，但希望每次回来，都能看到一点让自己点头的东西。</p>
+        </section>
+
+        <!-- 场景提示 + FAQ 摘要（混合内容） -->
+        <section class="chapter">
+            <h2>一些你可能想知道的</h2>
+            <p>如果你是第一次来到<a href="https://app-official-aiyouxi.com.cn">爱游戏</a>，可能会好奇这里到底聊什么、适合谁。简单说：适合那些把游戏当作一种表达、一种放松，甚至一种思考方式的人。没有固定栏目，文章大多围绕体验和感受展开，偶尔也会记下开发者的手记或玩家的小故事。</p>
+            <div class="faq-preview">
+                <h3>❔ 常见疑惑 · 简单回答</h3>
+                <details>
+                    <summary>内容多久更新一次？</summary>
+                    <div class="faq-answer">目前没有固定时间表，但尽量保持每周至少一篇新内容。有时写得顺手，会连着发两篇短的。</div>
+                </details>
+                <details>
+                    <summary>有社区或讨论区吗？</summary>
+                    <div class="faq-answer">暂时没有独立的论坛，但每篇文章下方都可以留言交流。如果你愿意，也可以直接给站点写信。</div>
+                </details>
+                <details>
+                    <summary>可以投稿或分享自己的故事吗？</summary>
+                    <div class="faq-answer">非常欢迎。只要和游戏、创作、生活有关，都可以通过站内联系方式聊聊。合适的话会整理成署名文章发布。</div>
+                </details>
+                <details>
+                    <summary>站名为什么叫“爱游戏”？</summary>
+                    <div class="faq-answer">因为简单直白。三个字念出来，就是心里那个状态。希望每个人在这里都能找回当初喜欢上游戏的那份轻松。</div>
+                </details>
+            </div>
+        </section>
+
+        <!-- 温和结尾 -->
+        <div class="gentle-footer">
+            <p>感谢你读到这里。如果某天你路过<a href="https://app-official-aiyouxi.com.cn">爱游戏</a>，不妨进来坐坐，翻翻最近的文字。</p>
+            <div class="small-note">不需要刻意记住什么，随心来就好。</div>
+        </div>
+
+    </main>
+
+</body>
+</html>
